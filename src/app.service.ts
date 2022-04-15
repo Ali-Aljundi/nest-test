@@ -6,11 +6,10 @@ var mtproto
  @Injectable()
 export class AppService implements OnModuleInit {
   onModuleInit() {
-    console.log(`Initialization...`);
-    this.initTelegram()
-    //this.auth()
-    //this.createChannel()
-    this.addUserToChannel()
+    // this.initTelegram()
+    // //this.auth()
+    // //this.createChannel()
+    // this.addUserToChannel()
    }
 
   initTelegram() {
