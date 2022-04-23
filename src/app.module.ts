@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TelegramService } from './telegram/telegram.service';
 import { UserModule } from './user/user.module';
+import { TeacherModule } from './teacher/teacher.module';
+import { StudentModule } from './student/student.module';
 @Module({
   imports: [
    ConfigModule.forRoot(),
@@ -19,6 +21,8 @@ import { UserModule } from './user/user.module';
       synchronize: true, // This for development
       autoLoadEntities: true,
     }),
+    TeacherModule,
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService, TelegramService],
