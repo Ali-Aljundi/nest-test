@@ -9,8 +9,8 @@ const stringSession = new StringSession("1BAAOMTQ5LjE1NC4xNjcuOTEAUAkj5sQ6r+Z0k9
 @Injectable()
 export class TelegramService implements OnModuleInit {
     onModuleInit() {
-        console.log(`Initialization...`);
-        this.initTelegram()
+       /// console.log(`Initialization...`);
+        //this.initTelegram()
      }
 
      initTelegram(){
