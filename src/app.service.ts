@@ -1,9 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
- @Injectable()
+@Injectable()
 export class AppService implements OnModuleInit {
-  onModuleInit() {
- 
-   }
-
- 
+  onModuleInit() {}
 }
