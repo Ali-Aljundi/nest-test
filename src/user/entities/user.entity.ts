@@ -49,9 +49,9 @@ export class User {
 
   @OneToOne(() => Teacher)
   @JoinColumn()
-  teacher_: Teacher;
+  teacher: Teacher;
 
   @OneToOne(() => Student)
   @JoinColumn()
-  student_: Student;
+  student: Student;
 }

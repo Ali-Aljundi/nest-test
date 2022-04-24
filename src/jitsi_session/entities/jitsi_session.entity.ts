@@ -29,8 +29,8 @@ export class JitsiSession {
   password: string;
 
   @ManyToOne(() => Class, (classs) => classs.id)
-  class_: Class;
+  class: Class;
 
   @ManyToOne(() => Teacher, (student) => student.id)
-  teacher_: Teacher;
+  teacher: Teacher;
 }

@@ -32,7 +32,7 @@ export class Payment_Method {
   @Column('varchar', { length: 200 })
   name: string;
 
-  @OneToMany(() => Payment, (payment) => payment.payment_method_)
+  @OneToMany(() => Payment, (payment) => payment.paymentMethod)
   payment: Payment[];
 }
 
@@ -49,7 +49,7 @@ export class Payment {
   id: number;
 
   @Column('time')
-  payment_date: string;
+  paymentDate: string;
 
   @Column('int')
   amount: string;
@@ -58,14 +58,14 @@ export class Payment {
   status: PaymentStatus;
 
   @Column('time')
-  due_date: string;
+  dueDate: string;
 
   @ManyToOne(() => Payment_Method, (payment_method) => payment_method.id)
-  payment_method_: Payment_Method;
+  paymentMethod: Payment_Method;
 
   @ManyToOne(() => Class, (classs) => classs.id)
-  class_: Class;
+  class: Class;
 
   @ManyToOne(() => Student, (student) => student.id)
-  student_: Student;
+  student: Student;
 }

@@ -20,10 +20,10 @@ export class Teacher {
     id: number;
 
     @Column('varchar', { length: 200 })
-    first_name: string;
+    firstName: string;
 
     @Column('varchar', { length: 200 })
-    last_name: string;
+    lastName: string;
 
     @Column('varchar', { length: 200 })
     phone: string;
@@ -34,9 +34,9 @@ export class Teacher {
     @Column({ type: 'enum', enum: GenderEnum, default: GenderEnum.MALE })
     gender: GenderEnum;
 
-    @OneToMany(() => Class, (classs) => classs.teacher_)
+    @OneToMany(() => Class, (classs) => classs.teacher)
     class: Class[];
 
-    @OneToMany(() => JitsiSession, (JitsiSession) => JitsiSession.teacher_)
+    @OneToMany(() => JitsiSession, (JitsiSession) => JitsiSession.teacher)
     JitsiSession: JitsiSession[];
 }

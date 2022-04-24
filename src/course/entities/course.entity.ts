@@ -31,9 +31,9 @@ export class Course {
   @Column('varchar')
   image: string;
 
-  @OneToMany(() => Class, (classs) => classs.course_)
+  @OneToMany(() => Class, (classs) => classs.course)
   classs: Class[];
 
-  @OneToMany(() => Rating, (rating) => rating.course_)
+  @OneToMany(() => Rating, (rating) => rating.course)
   rating: Rating[];
 }

@@ -48,37 +48,37 @@ export class Class {
   discount: string;
 
   @Column('int')
-  max_student: string;
+  maxStudent: string;
 
   @Column('time')
-  start_date: string;
+  startDate: string;
 
   @Column('time')
-  end_date: string;
+  endDate: string;
 
   @Column('int')
-  session_number: string;
+  sessionNumber: string;
 
   @ManyToMany(() => Student)
   @JoinTable()
   students: Student[];
 
   @ManyToOne(() => Course, (course) => course.id)
-  course_: Course;
+  course: Course;
 
   @ManyToOne(() => Teacher, (teacher) => teacher.id)
-  teacher_: Teacher;
+  teacher: Teacher;
 
-  @OneToMany(() => Payment, (payment) => payment.class_)
+  @OneToMany(() => Payment, (payment) => payment.class)
   payment: Payment[];
 
-  @OneToMany(() => Rating, (rating) => rating.class_)
+  @OneToMany(() => Rating, (rating) => rating.class)
   rating: Rating[];
 
-  @OneToMany(() => Session_Date, (Session_Date) => Session_Date.class_)
-  Session_Date: Session_Date[];
+  @OneToMany(() => Session_Date, (Session_Date) => Session_Date.class)
+  SessionDate: Session_Date[];
 
-  @OneToMany(() => JitsiSession, (JitsiSession) => JitsiSession.class_)
+  @OneToMany(() => JitsiSession, (JitsiSession) => JitsiSession.class)
   JitsiSession: JitsiSession[];
 }
 
@@ -95,11 +95,11 @@ export class Session_Date {
   id: number;
 
   @Column('time')
-  start_date: string;
+  startDate: string;
 
   @Column('time')
-  end_date: string;
+  endDate: string;
 
   @ManyToOne(() => Class, (Class) => Class.id)
-  class_: Class;
+  class: Class;
 }

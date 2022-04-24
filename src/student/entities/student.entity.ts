@@ -27,7 +27,7 @@ export class Country {
   @Column('varchar')
   name: string;
 
-  @OneToMany(() => Student, (student) => student.country_)
+  @OneToMany(() => Student, (student) => student.country)
   student: Student[];
 }
 @Entity()
@@ -43,19 +43,19 @@ export class Student {
   id: number;
 
   @Column('varchar', { length: 200 })
-  first_name: string;
+  firstName: string;
 
   @Column('varchar', { length: 200 })
-  last_name: string;
+  lastName: string;
 
   @Column('varchar', { length: 200 })
-  middle_name: string;
+  middleName: string;
 
   @Column('date')
-  date_birth: string;
+  dateBirth: string;
 
   @ManyToOne(() => Country, (country) => country.id)
-  country_: Country;
+  country: Country;
 
   @Column('varchar', { length: 200 })
   phone: string;
@@ -66,9 +66,9 @@ export class Student {
   @ManyToMany(() => Class, (Class) => Class.students)
   Classes: Class[];
 
-  @OneToMany(() => Payment, (payment) => payment.student_)
+  @OneToMany(() => Payment, (payment) => payment.student)
   payment: Payment[];
 
-  @OneToMany(() => Rating, (rating) => rating.student_)
+  @OneToMany(() => Rating, (rating) => rating.student)
   rating: Rating[];
 }

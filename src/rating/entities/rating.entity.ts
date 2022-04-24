@@ -27,11 +27,11 @@ export class Rating {
   rating: string;
 
   @ManyToOne(() => Course, (course) => course.id)
-  course_: Course;
+  course: Course;
 
   @ManyToOne(() => Class, (Class) => Class.id)
-  class_: Class;
+  class: Class;
 
   @ManyToOne(() => Student, (student) => student.id)
-  student_: Student;
+  student: Student;
 }
