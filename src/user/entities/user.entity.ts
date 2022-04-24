@@ -1,6 +1,7 @@
 import { Student } from 'src/student/entities/student.entity';
 import { Teacher } from 'src/teacher/entities/teacher.entity';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -11,6 +12,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import * as bcryptjs from 'bcryptjs'
+ 
 export enum UserRole {
   ADMIN = 1,
   TEACHER = 2,
@@ -35,10 +38,14 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @Column('varchar', { length: 200 })
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    unique: true
+  })
   email: string;
 
-  @Column('varchar', { length: 200 })
+  @Column('varchar', { nullable: false  })
   password: string;
 
   @Column({ type: 'enum', enum: AccountStatus, default: AccountStatus.PINDING })
@@ -54,4 +61,8 @@ export class User {
   @OneToOne(() => Student)
   @JoinColumn()
   student: Student;
+
+  @BeforeInsert()  async hashPassword() {
+    this.password = await bcryptjs.hash(this.password, 10);  
+}
 }
