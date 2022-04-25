@@ -12,20 +12,16 @@ import { ClassModule } from './class/class.module';
 import { PaymentModule } from './payment/payment.module';
 import { RatingModule } from './rating/rating.module';
 import { JitsiSessionModule } from './jitsi_session/jitsi_session.module';
+import { getEnvPath } from './common/helper/env.helper';
+import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
+
+const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
+
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
     UserModule,
-    TypeOrmModule.forRoot({
-      url: process.env.DATABASE_URL,
-      type: 'postgres',
-      ssl: {
-        rejectUnauthorized: false,
-      },
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true, // This for development
-      autoLoadEntities: true,
-    }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     TeacherModule,
     StudentModule,
     CourseModule,

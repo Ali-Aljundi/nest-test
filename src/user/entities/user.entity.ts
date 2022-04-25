@@ -1,7 +1,6 @@
 import { Student } from 'src/student/entities/student.entity';
 import { Teacher } from 'src/teacher/entities/teacher.entity';
 import {
-  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -13,6 +12,7 @@ import {
 } from 'typeorm';
 
 import * as bcryptjs from 'bcryptjs'
+import { Exclude } from 'class-transformer';
  
 export enum UserRole {
   ADMIN = 1,
@@ -45,6 +45,7 @@ export class User {
   })
   email: string;
 
+  @Exclude()
   @Column('varchar', { nullable: false  })
   password: string;
 
@@ -62,7 +63,4 @@ export class User {
   @JoinColumn()
   student: Student;
 
-  @BeforeInsert()  async hashPassword() {
-    this.password = await bcryptjs.hash(this.password, 10);  
-}
 }
