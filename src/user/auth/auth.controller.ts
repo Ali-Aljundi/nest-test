@@ -1,10 +1,11 @@
 
-import { Body, Controller, Inject, Post, ClassSerializerInterceptor, UseInterceptors, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Inject, Post, ClassSerializerInterceptor, UseInterceptors, UseGuards, Req, UsePipes, ValidationPipe } from '@nestjs/common';
 import { User } from '@/user/entities/user.entity';
 import { RegisterDto, LoginDto, RegisterTeacherDto } from './auth.dto';
 import { JwtAuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
+import { sanitize } from 'class-sanitizer';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +22,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   private registerTeacher(@Body() body: RegisterTeacherDto): Promise<User | never> {
-    return this.service.register(body);
+    return this.service.registerTeacher(body);
   }
 
   @Post('login')

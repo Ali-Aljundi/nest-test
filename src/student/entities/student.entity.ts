@@ -57,8 +57,8 @@ export class Student {
   @ManyToOne(() => Country, (country) => country.id)
   country: Country;
 
-  @Column('varchar', { length: 200 })
-  phone: string;
+  // @Column('varchar', { length: 200 })
+  // phone: string;
 
   @Column('varchar', { length: 200 })
   email: string;
