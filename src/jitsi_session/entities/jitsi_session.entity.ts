@@ -19,8 +19,8 @@ export class JitsiSession {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('varchar')
   url: string;

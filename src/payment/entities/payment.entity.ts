@@ -26,8 +26,8 @@ export class Payment_Method {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('varchar', { length: 200 })
   name: string;
@@ -45,10 +45,10 @@ export class Payment {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column('time')
+  @Column('date')
   paymentDate: string;
 
   @Column('int')
@@ -57,7 +57,7 @@ export class Payment {
   @Column({ type: 'enum', enum: PaymentStatus, default: PaymentStatus.PINDING })
   status: PaymentStatus;
 
-  @Column('time')
+  @Column('date')
   dueDate: string;
 
   @ManyToOne(() => Payment_Method, (payment_method) => payment_method.id)

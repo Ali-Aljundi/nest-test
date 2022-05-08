@@ -26,8 +26,8 @@ export class Class {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('varchar', { length: 200 })
   code: string;
@@ -41,23 +41,23 @@ export class Class {
   @Column('varchar')
   subjects: string;
 
-  @Column('int')
+  @Column('varchar')
   price: string;
 
   @Column('int', { nullable: true })
   discount: string;
 
   @Column('int')
-  maxStudent: string;
+  maxStudent: number;
 
-  @Column('time')
+  @Column('date')
   startDate: string;
 
-  @Column('time')
+  @Column('date')
   endDate: string;
 
   @Column('int')
-  sessionNumber: string;
+  sessionNumber: number;
 
   @ManyToMany(() => Student)
   @JoinTable()
@@ -91,13 +91,13 @@ export class Session_Date {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column('time')
+  @Column('date')
   startDate: string;
 
-  @Column('time')
+  @Column('date')
   endDate: string;
 
   @ManyToOne(() => Class, (Class) => Class.id)

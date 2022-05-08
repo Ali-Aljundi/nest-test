@@ -1,6 +1,7 @@
 import { GenderEnum } from '@/teacher/entities/teacher.entity';
 import { Trim } from 'class-sanitizer';
-import {IsDateString, IsEmail, IsEnum, IsMobilePhone, IsString, MinLength } from 'class-validator';
+import {IsDateString, IsEmail, IsEnum, IsMobilePhone, IsString, IsUUID, MinLength } from 'class-validator';
+import { User } from '../entities/user.entity';
 
 export class RegisterDto {
   @IsString()
@@ -11,7 +12,7 @@ export class RegisterDto {
   public readonly middleName: string;
   @IsDateString()
   public readonly dateBirth: string;
-  @IsString()
+  @IsUUID()
   public readonly countryId: string;
 
   @IsEmail()
@@ -45,11 +46,18 @@ export class RegisterTeacherDto {
 }
 
 export class LoginDto {
-  @Trim()
   @IsEmail()
   public readonly email: string;
 
   @IsString()
   public readonly password: string;
 }
-
+ 
+export class TokenDto{
+  @IsString()
+  public readonly token: string;
+}
+export class UserTokenDto extends User{
+  @IsString()
+  public token?: string;
+}

@@ -20,8 +20,8 @@ export class Rating {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('int')
   rating: string;

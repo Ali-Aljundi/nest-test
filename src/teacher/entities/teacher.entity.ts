@@ -17,7 +17,7 @@ export class Teacher {
     deletedDate: Date;
 
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
     @Column('varchar', { length: 200 })
     firstName: string;

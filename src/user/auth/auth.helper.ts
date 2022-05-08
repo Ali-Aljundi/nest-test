@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '@/user/entities/user.entity';
 import * as bcrypt from 'bcryptjs';
+import { TokenDto } from './auth.dto';
 
 @Injectable()
 export class AuthHelper {
@@ -27,8 +28,8 @@ export class AuthHelper {
   }
 
   // Generate JWT Token
-  public generateToken(user: User): string {
-    return this.jwt.sign({ id: user.id, email: user.email });
+  public generateToken(user: User): TokenDto {
+    return { token: this.jwt.sign({ id: user.id, email: user.email }) };
   }
 
   // Validate User's password

@@ -21,8 +21,8 @@ export class Country {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('varchar')
   name: string;
@@ -39,8 +39,8 @@ export class Student {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('varchar', { length: 200 })
   firstName: string;

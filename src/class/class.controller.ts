@@ -6,16 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ClassService } from './class.service';
-import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.dto';
-
+import { CreateClassDto, UpdateClassDto } from './dto/class.dto';
+  
 @Controller('class')
 export class ClassController {
   constructor(private readonly classService: ClassService) {}
 
   @Post()
+  @UseInterceptors(ClassSerializerInterceptor)
   create(@Body() createClassDto: CreateClassDto) {
     return this.classService.create(createClassDto);
   }

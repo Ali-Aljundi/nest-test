@@ -1,11 +1,26 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import { Teacher } from '@/teacher/entities/teacher.entity';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateCourseDto, UpdateCourseDto } from './dto/course.dto';
+import { Course } from './entities/course.entity';
+
 
 @Injectable()
 export class CourseService {
-  create(createCourseDto: CreateCourseDto) {
-    return 'This action adds a new course';
+  @InjectRepository(Course)
+  private readonly courseRepository: Repository<Course>;
+
+  public async create(body: CreateCourseDto): Promise<Course | never> {
+    const {description,name}: CreateCourseDto = body;
+    let course: Course = await this.courseRepository.findOne({ where: { name : name } });
+    if (course) {
+      throw new HttpException('Course Found Before', HttpStatus.CONFLICT);
+    }
+    course = new Course();
+    course.name= name
+    course.description= description
+    return this.courseRepository.save(course)
   }
 
   findAll() {

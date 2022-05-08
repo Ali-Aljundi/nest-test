@@ -19,8 +19,8 @@ export class Course {
   @DeleteDateColumn()
   deletedDate: Date;
 
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+   @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('varchar', { length: 200 })
   name: string;
@@ -28,7 +28,7 @@ export class Course {
   @Column('varchar')
   description: string;
 
-  @Column('varchar')
+  @Column('varchar', { nullable: true })
   image: string;
 
   @OneToMany(() => Class, (classs) => classs.course)

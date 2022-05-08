@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from '@/user/auth/auth.guard';
 import {
   Controller,
   Get,
@@ -6,18 +7,26 @@ import {
   Patch,
   Param,
   Delete,
+  ClassSerializerInterceptor,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { CreateJitsiSessionDto, UpdateJitsiSessionDto } from './dto/jitsi-session.dto';
 import { JitsiSessionService } from './jitsi_session.service';
-import { CreateJitsiSessionDto } from './dto/create-jitsi_session.dto';
-import { UpdateJitsiSessionDto } from './dto/update-jitsi_session.dto';
 
 @Controller('jitsi-session')
 export class JitsiSessionController {
   constructor(private readonly jitsiSessionService: JitsiSessionService) {}
 
   @Post()
+  @UseInterceptors(ClassSerializerInterceptor)
+ // @UseGuards(JwtAuthGuard)
   create(@Body() createJitsiSessionDto: CreateJitsiSessionDto) {
     return this.jitsiSessionService.create(createJitsiSessionDto);
+  }
+  @Get('get-url/:classId')
+  getUrl(@Param('classId') classId: string) {
+    return this.jitsiSessionService.getUrl(classId);
   }
 
   @Get()

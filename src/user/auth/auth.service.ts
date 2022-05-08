@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AccountStatus, User, UserRole } from '@/user/entities/user.entity';
 import { Repository } from 'typeorm';
-import { RegisterDto, LoginDto, RegisterTeacherDto } from './auth.dto';
+import { RegisterDto, LoginDto, RegisterTeacherDto, UserTokenDto, TokenDto } from './auth.dto';
 import { AuthHelper } from './auth.helper';
 import { Country, Student } from '@/student/entities/student.entity';
 import { Teacher } from '@/teacher/entities/teacher.entity';
@@ -24,7 +24,7 @@ export class AuthService {
   @Inject(AuthHelper)
   private readonly helper: AuthHelper;
 
-  public async register(body: RegisterDto): Promise<User | never> {
+  public async register(body: RegisterDto): Promise<UserTokenDto | never> {
     const { email, password, countryId, dateBirth, firstName, lastName, middleName }: RegisterDto = body;
     let user: User = await this.userRepository.findOne({ where: { email } });
     let country
@@ -57,7 +57,11 @@ export class AuthService {
     user.student = newStudent
     user.role= UserRole.STUDENT
     user.status= AccountStatus.PINDING
-    return this.userRepository.save(user);
+
+    let userToken:UserTokenDto = new UserTokenDto()
+    userToken= await this.userRepository.save(user)
+    userToken.token= this.helper.generateToken(user).token
+    return userToken;
   }
 
   public async registerTeacher(body: RegisterTeacherDto): Promise<User | never> {
@@ -88,7 +92,7 @@ export class AuthService {
     return this.userRepository.save(user);
   }
 
-  public async login(body: LoginDto): Promise<string | never> {
+  public async login(body: LoginDto): Promise<UserTokenDto | never> {
     const { email, password }: LoginDto = body;
     const user: User = await this.userRepository.findOne({ where: { email } });
 
@@ -101,12 +105,14 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new HttpException('No user found', HttpStatus.NOT_FOUND);
     }
-
-
-    return this.helper.generateToken(user);
+    let userToken:UserTokenDto = new UserTokenDto()
+    delete user.password
+    userToken= user
+    userToken.token= this.helper.generateToken(user).token
+    return userToken;
   }
 
-  public async refresh(user: User): Promise<string> {
+  public async refresh(user: User): Promise<TokenDto> {
     return this.helper.generateToken(user);
   }
 }
