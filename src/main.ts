@@ -11,8 +11,11 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  await app.listen(port, () => {
-    console.log('[WEB]', `http://localhost:${port}`);
+  await app.listen(port || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app);
   });
+  // await app.listen(port, () => {
+  //   console.log('[WEB]', `http://localhost:${port}`);
+  // });
 }
 bootstrap();
