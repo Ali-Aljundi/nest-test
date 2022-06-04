@@ -43,8 +43,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "telegram": "^2.6.13",
-    "typeorm": "^0.2.45",
-    "ts-node": "^10.0.0"
+    "typeorm": "^0.2.45"a
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
