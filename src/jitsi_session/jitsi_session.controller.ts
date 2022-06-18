@@ -20,7 +20,7 @@ export class JitsiSessionController {
 
   @Post()
   @UseInterceptors(ClassSerializerInterceptor)
- // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createJitsiSessionDto: CreateJitsiSessionDto) {
     return this.jitsiSessionService.create(createJitsiSessionDto);
   }

@@ -27,4 +27,10 @@ export class CreateClassDto {
     @Min(1)
     public sessionNumber: number;
 }
+export class RegisterStudentDto {
+    @IsUUID()
+    public classId: string;
+    @IsUUID()
+    public studentId: string;
+}
 export class UpdateClassDto extends PartialType(CreateClassDto) {}

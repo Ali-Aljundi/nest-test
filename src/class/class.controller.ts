@@ -8,9 +8,10 @@ import {
   Delete,
   ClassSerializerInterceptor,
   UseInterceptors,
+  Query,
 } from '@nestjs/common';
 import { ClassService } from './class.service';
-import { CreateClassDto, UpdateClassDto } from './dto/class.dto';
+import { CreateClassDto, RegisterStudentDto, UpdateClassDto } from './dto/class.dto';
   
 @Controller('class')
 export class ClassController {
@@ -22,10 +23,25 @@ export class ClassController {
     return this.classService.create(createClassDto);
   }
 
-  @Get()
-  findAll() {
-    return this.classService.findAll();
+  @Get('/')
+  findAllByQuery(@Query('teacherId') teacherId: string,@Query('courseId') courseId: string) {
+    return this.classService.findAllByQuery(teacherId,courseId);
   }
+
+  @Get('/student')
+  findAllByStudent(@Query('studentId') studentId: string) {
+    return this.classService.findAllByStudent(studentId);
+  }
+
+  @Post('/register')
+  @UseInterceptors(ClassSerializerInterceptor)
+  registerNewStudent(@Body() registerStudentDto: RegisterStudentDto){
+    return this.classService.registerNewStudent(registerStudentDto);
+  }
+  // @Get('/')
+  // findAll(){
+  //   return this.classService.findAll();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

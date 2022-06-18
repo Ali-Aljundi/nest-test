@@ -59,7 +59,7 @@ export class Class {
   @Column('int')
   sessionNumber: number;
 
-  @ManyToMany(() => Student)
+  @ManyToMany(() => Student, (student) => student.Classes)
   @JoinTable()
   students: Student[];
 

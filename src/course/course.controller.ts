@@ -8,6 +8,7 @@ import {
   Delete,
   ClassSerializerInterceptor,
   UseInterceptors,
+  Query,
 } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto, UpdateCourseDto } from './dto/course.dto';
@@ -22,11 +23,10 @@ export class CourseController {
     return this.courseService.create(createCourseDto);
   }
 
-  @Get()
-  findAll() {
-    return this.courseService.findAll();
+  @Get('/')
+  findAll(@Query('teacherId') teacherId: string,@Query('studentId') studentId: string){
+    return this.courseService.findAll(teacherId,studentId);
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.courseService.findOne(+id);
