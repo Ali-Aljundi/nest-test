@@ -94,7 +94,7 @@ export class AuthService {
 
   public async login(body: LoginDto): Promise<UserTokenDto | never> {
     const { email, password }: LoginDto = body;
-    const user: User = await this.userRepository.findOne({ where: { email } });
+    const user: User = await this.userRepository.findOne({ where: { email },relations:['teacher','student'] });
 
     if (!user) {
       throw new HttpException('No user found', HttpStatus.NOT_FOUND);
