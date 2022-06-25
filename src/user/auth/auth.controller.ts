@@ -19,7 +19,6 @@ export class AuthController {
   }
 
   @Post('register/teacher')
-  @UseGuards(JwtAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   private registerTeacher(@Body() body: RegisterTeacherDto): Promise<User | never> {
     return this.service.registerTeacher(body);
