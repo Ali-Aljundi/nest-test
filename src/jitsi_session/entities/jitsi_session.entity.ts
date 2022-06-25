@@ -23,7 +23,7 @@ export class JitsiSession {
   id: string;
 
   @Column('varchar')
-  url: string;
+  roomName: string;
 
   @Column('varchar')
   password: string;

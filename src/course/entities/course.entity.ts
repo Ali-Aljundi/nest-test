@@ -29,6 +29,9 @@ export class Course {
   description: string;
 
   @Column('varchar', { nullable: true })
+  extraDescription?: string;
+
+  @Column('varchar', { nullable: true })
   image: string;
 
   @OneToMany(() => Class, (classs) => classs.course)

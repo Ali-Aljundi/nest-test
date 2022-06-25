@@ -28,14 +28,9 @@ export class JitsiSessionController {
     return this.jitsiSessionService.getUrl(classId);
   }
 
-  @Get()
-  findAll() {
-    return this.jitsiSessionService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.jitsiSessionService.findOne(+id);
+  findAll(@Param('id') id: string) {
+    return this.jitsiSessionService.findOne(id);
   }
 
   @Patch(':id')

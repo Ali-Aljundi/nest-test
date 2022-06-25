@@ -3,7 +3,7 @@ import { Teacher } from '@/teacher/entities/teacher.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateJitsiSessionDto, JitsiSessionUrlDto, UpdateJitsiSessionDto } from './dto/jitsi-session.dto';
+import { CreateJitsiSessionDto, JitsiSessionInfoDto, JitsiSessionUrlDto, UpdateJitsiSessionDto } from './dto/jitsi-session.dto';
 import { JitsiSession } from './entities/jitsi_session.entity';
   
 @Injectable()
@@ -18,7 +18,7 @@ export class JitsiSessionService {
   private readonly teacherRepository: Repository<Teacher>;
 
   public async create(body: CreateJitsiSessionDto): Promise<JitsiSession | never> {
-    const {password,classId,teacherId,url }: CreateJitsiSessionDto = body;
+    const {password,classId,teacherId,roomName }: CreateJitsiSessionDto = body;
     let teacher: Teacher = await this.teacherRepository.findOne({ where: { id : teacherId } });
     if (!teacher) {
       throw new HttpException('Wrong Teacher Id', HttpStatus.CONFLICT);
@@ -34,7 +34,7 @@ export class JitsiSessionService {
     delete Class.teacher
     session.class= Class
     session.teacher= teacher
-    session.url= url
+    session.roomName= roomName
     session.password= password
 
     return this.jitsiRepository.save(session)
@@ -46,7 +46,7 @@ export class JitsiSessionService {
     }
     let session: JitsiSession = await this.jitsiRepository.findOne({ where: { class : Class},order:{createdDate:'DESC'} });
     let sessionUrl: JitsiSessionUrlDto = new JitsiSessionUrlDto()
-    sessionUrl.url = session.url
+    sessionUrl.roomName = session.roomName
     return sessionUrl
   }
 
@@ -54,9 +54,16 @@ export class JitsiSessionService {
     return `This action returns all jitsiSession`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} jitsiSession`;
+  public async findOne(id: string): Promise<JitsiSessionInfoDto | never> {
+    let session: JitsiSession = await this.jitsiRepository.findOne({ where: { id : id },relations:['teacher','class']});
+    let students = await this.classRepository.findOne({where:{ id : session.class.id },relations:['students']})
+    let sessionInfo:any = new JitsiSessionInfoDto()
+    sessionInfo = {...session};
+    sessionInfo.students = students.students
+    return sessionInfo
   }
+
+
 
   update(id: number, updateJitsiSessionDto: UpdateJitsiSessionDto) {
     return `This action updates a #${id} jitsiSession`;

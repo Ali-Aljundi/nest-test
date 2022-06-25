@@ -20,7 +20,7 @@ export class CourseService {
   private readonly studentRepository: Repository<Student>;
 
   public async create(body: CreateCourseDto): Promise<Course | never> {
-    const {description,name}: CreateCourseDto = body;
+    const {description,name,extraDescription}: CreateCourseDto = body;
     let course: Course = await this.courseRepository.findOne({ where: { name : name } });
     if (course) {
       throw new HttpException('Course Found Before', HttpStatus.CONFLICT);
@@ -28,6 +28,7 @@ export class CourseService {
     course = new Course();
     course.name= name
     course.description= description
+    course.extraDescription= extraDescription
     return this.courseRepository.save(course)
   }
 
